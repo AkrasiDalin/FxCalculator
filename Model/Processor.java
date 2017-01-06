@@ -35,22 +35,32 @@ public class Processor {
 		Pattern syms = Pattern.compile("\\D");
 		Matcher nu = nums.matcher(digit);
 		Matcher sy = syms.matcher(digit);
-		//System.out.println("It finds="+m.find());
-		//System.out.println("It matches="+m.groupCount());
+	
 		int matchQuantity = nu.groupCount();
 		
 		for(int i=0;i<matchQuantity;++i){
-			numbers.add(
-Double.valueOf(nu.group(i)));
+			nu.find();
+			System.out.println("index="+i);
+			numbers.add(Double.valueOf(nu.group(i)));
 			if(i != matchQuantity-1){
-			String symb = sy.group(i);
-			symbols.add(symb.charAt(0));
-		}	
-	}
+				sy.find();
+				String symb = sy.group(i);
+				symbols.add(symb.charAt(0));
+			}	
+		}
 
 		//triplet = new Triplet(Double.valueOf(m.group(0)),2.0,'c');
 		//return triplet;
 	
+	}
+
+	private double getNumber(int index){
+		 try {return numbers.get(index);
+		}finally{return -1;}
+	}
+	
+	private char getSymbol(int index){
+		try {return symbols.get(index);}finally{return '';}
 	}
 
 	private static class Triplet<A, B, C> {
@@ -71,7 +81,8 @@ Double.valueOf(nu.group(i)));
 	}
 	
 	public static void main(String[] args){
-		matchor("1+3/4");
+	//	Processor pr = new Processor();
+	//	pr.matchor("1+44/54");
 	}
 
 }
